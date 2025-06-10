@@ -1,78 +1,54 @@
-🔦 Akıllı Oda Aydınlatma Sistemi – Raspberry Pi Tabanlı
-📌 Proje Amacı
-Bu proje, bir odaya girildiğinde ortam ışığına bağlı olarak otomatik olarak bir lambayı (LED) yakmayı ve içeride biri kalmadığında kapatmayı amaçlamaktadır. Sistem, fotosel (LDR), ultrasonik mesafe sensörü (HC-SR04) ve USB kamera ile insan varlığını tespit eder.
+# 🔦 Akıllı Oda Aydınlatma Sistemi – Raspberry Pi Tabanlı
 
-🛠️ Kullanılan Donanım
-Raspberry Pi (GPIO destekli)
+## 📌 Proje Amacı
 
-HC-SR04 Ultrasonik Mesafe Sensörü
+Bu proje, **bir odaya girildiğinde ortam ışığına bağlı olarak otomatik bir lambayı (LED) yakmayı** ve içeride insan kalmadığında kapatmayı amaçlar. Sistem; **fotosel (LDR)**, **ultrasonik mesafe sensörü (HC-SR04)** ve **kamera ile insan tespiti** gibi unsurları kullanır.
 
-LDR (Fotosel) + 10kΩ direnç
+## 🛠️ Kullanılan Donanım
 
-LED (veya röle modülü ile lamba)
+- 🧠 Raspberry Pi (GPIO destekli)
+- 📏 HC-SR04 Ultrasonik Mesafe Sensörü
+- 🌞 LDR (Fotosel) + 10kΩ direnç
+- 💡 LED veya Röle (Gerçek lamba kontrolü için)
+- 🎥 USB Kamera (UVC uyumlu)
+- 🔌 Breadboard, jumper kablolar
 
-USB Kamera (UVC uyumlu)
+## ⚙️ Sistem Çalışma Prensibi
 
-Jumper kablolar, breadboard
+### 1. 🌗 Ortam Işığı Kontrolü (LDR)
+- LDR ile ışık seviyesi ölçülür.
+- **Eğer ortam aydınlıksa sistem pasif kalır.**
+- **Ortam karanlıksa sistem aktif hale gelir.**
 
-⚙️ Sistem Nasıl Çalışır?
-1. Işık Seviyesi Kontrolü (Fotosel ile)
-Odanın ışık seviyesi ölçülür.
+### 2. 🚪 Giriş Tespiti (HC-SR04)
+- Sensör, **oda kapısı girişine** konumlandırılır.
+- 60 cm altındaki hareketler, **birinin içeri girdiği** şeklinde değerlendirilir.
+- LED yakılır ve zaman kaydedilir.
 
-Eğer ortam aydınlıksa sistem pasif olur (LED yakılmaz).
+### 3. 🧍 İnsan Tespiti (Kamera + OpenCV)
+- OpenCV HOG + SVM kullanılarak insan tespiti yapılır.
+- İnsan algılanırsa LED açık kalır.
+- **15 saniye boyunca kimse algılanmazsa LED kapanır.**
 
-Ortam karanlıksa sistem devreye girer ve diğer kontroller başlar.
+### 4. 🖐️ Manuel Çıkış
+- `'q'` tuşuna basarak kamera penceresinden çıkılabilir.
+- `Ctrl+C` ile program terminalden sonlandırılabilir.
 
-2. Giriş Tespiti (HC-SR04 ile)
-Sensör, oda kapısının girişine yerleştirilmiştir.
+## 🧭 Sensör Yerleşimi
 
-60 cm’den daha yakın bir hareket algılanırsa biri girdiği varsayılır.
+- **LDR**: Oda genel ışığını algılayacak şekilde yerleştirilir.
+- **HC-SR04**: Kapı girişine bakacak şekilde monte edilir.
+- **Kamera**: Odanın içini görecek şekilde konumlandırılır.
 
-Bu durumda LED yakılır ve son görülen zaman kaydedilir.
+## 🖥️ Görsel Arayüz
 
-3. İnsan Tespiti (OpenCV ile Kamera Analizi)
-Kamera görüntüsü işlenir, OpenCV HOG + SVM ile insan varlığı algılanır.
+- Kamera görüntüsü ekrana yansıtılır.
+- İnsanlar kare içine alınarak kullanıcıya gösterilir.
 
-İnsan tespit edilirse LED açık kalmaya devam eder.
+## 🧠 Genişletme Fikirleri
 
-15 saniye boyunca insan algılanmazsa LED otomatik olarak kapatılır.
+- 🔄 PIR sensörü entegrasyonu
+- 🌐 MQTT veya HTTP ile uzaktan kontrol
+- 🧠 Yüz tanıma ile kişisel otomasyon
+- 💡 Röle ile gerçek lamba veya cihaz kontrolü
 
-4. Kullanıcı Müdahalesi
-Program çalışırken "q" tuşuna basarak çıkış yapılabilir.
-
-Ctrl+C ile de terminalden çıkılabilir.
-
-🖥️ Görsel Arayüz
-Program çalışırken kamera görüntüsü açılır. Tespit edilen insanlar kare içine alınarak kullanıcıya gösterilir.
-
-📂 Kod Yapısı
-Ana Python dosyasında:
-
-GPIO pin tanımları
-
-LDR okuma fonksiyonu
-
-Mesafe ölçüm fonksiyonu
-
-OpenCV ile insan tespiti
-
-Zaman tabanlı LED kontrol sistemi
-
-🚪 Sensör Konumlandırması
-LDR: Odanın genel ışık seviyesini algılayacak şekilde yerleştirilir.
-
-HC-SR04: Kapının giriş kısmına bakacak şekilde monte edilir, böylece içeri giren kişi algılanır.
-
-Kamera: Oda içine bakacak şekilde yerleştirilir, insanları görsel olarak tespit eder.
-
-🧠 Genişletme Fikirleri
-Hareket sensörü (PIR) ile desteklenebilir.
-
-Akıllı ev sistemine MQTT veya HTTP API üzerinden bağlanabilir.
-
-Kamera ile yüz tanıma eklenebilir.
-
-LED yerine bir röle bağlanarak gerçek bir lamba kontrol edilebilir.
-
-📸 Ekran Görüntüsü
-Kamera ile alınan görüntülerde tespit edilen insanlar yeşil dikdörtgen ile işaretlenir.
