@@ -98,7 +98,7 @@ try:
         isik = oku_isik_filtreli(LDR_PIN)
         print(f"[FOTOSEL] (Filtreli) Işık seviyesi: {isik}")
 
-        if isik > 200:  # Karanlıksa sistem aktif
+        if isik > 300:  # Karanlıksa sistem aktif
             print("[SİSTEM] Ortam karanlık, sistem aktif.")
 
             # 2. HC-SR04 ile mesafe ölçülür
