@@ -35,5 +35,18 @@ def rc_time(pin):
 try:
     while True:
         light_level = rc_time(ldr_pin)
+        
         # Degeri normalize et (karanlik = daha yuksek sayi)
-        brightness = min(1.0, max(0.0, (light_level_
+        brightness = 1.0 - min(1.0, max(0.0, light_level / 1000.0))
+
+        # LED parlakligini ayarla
+        led.value = brightness
+
+        print(f"Işık Seviyesi: {light_level} | LED Parlaklığı: {brightness:.2f}")
+        time.sleep(0.2)
+
+except KeyboardInterrupt:
+    print("\nProgram durduruldu.")
+
+finally:
+    GPIO.cleanup()
