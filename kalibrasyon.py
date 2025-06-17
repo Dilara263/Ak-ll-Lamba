@@ -1,3 +1,4 @@
+#USB kamera için OpenCV kullanılarak satranç tahtası (chessboard) görüntülerinden kamera kalibrasyonu yapmak amacıyla hazırlanmıştır.
 import cv2
 import numpy as np
 import glob
