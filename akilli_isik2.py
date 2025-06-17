@@ -1,4 +1,4 @@
-#USB kamera için OpenCV kullanılarak satranç tahtası (chessboard) görüntülerinden kamera kalibrasyonu yapmak amacıyla hazırlanmıştır.
+#Bu kodda ek olarak USB kamera için OpenCV kullanılarak satranç tahtası görüntülerinden elde edilen kamera kalibrasyonu bulunmakta.
 import RPi.GPIO as GPIO
 import time
 import cv2
